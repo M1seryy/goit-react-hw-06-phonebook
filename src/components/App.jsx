@@ -35,7 +35,7 @@ function App() {
 
   const onCheckDublicate = obj => {
     cont.map(item => {
-      if (item.name === obj.name) {
+      if (item.name === obj.name && item.number === obj.number) {
         alert(`${obj.name} is already in contact list`);
         dispatch(cont.filter(contact => contact.name !== obj.name));
       }
