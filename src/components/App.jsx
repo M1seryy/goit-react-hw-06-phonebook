@@ -19,7 +19,6 @@ function App() {
       <ContactForm />
       <h1>Contacts</h1>
       <Filter />
-
       <ContactList />
     </div>
   );
