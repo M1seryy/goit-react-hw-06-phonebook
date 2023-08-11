@@ -1,52 +1,58 @@
-import React, { Component } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Button from '@mui/material/Button';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { contactsSelector, filterSelector } from 'redux/selectors';
+import { deleteContact } from 'redux/contactSlice';
 
-class ContactList extends Component {
-  render() {
-    return (
-      <ul>
-        {this.props.filter.length === 0
-          ? this.props.contacts.map(item => {
-              return (
-                <li key={nanoid()}>
+const ContactList = () => {
+  const filter = useSelector(filterSelector);
+  const contacts = useSelector(contactsSelector);
+  const dispatch = useDispatch();
+
+
+  const onDeleteItem = id => {
+    dispatch(deleteContact(id));
+  };
+
+
+  return (
+    <ul>
+      {filter.length === 0
+        ? contacts.map(item => {
+            return (
+              <li key={nanoid()}>
+                {item.name}:{item.number}
+                <Button
+                  onClick={() => onDeleteItem(item.id)}
+                  variant="contained"
+                >
+                  Delete
+                </Button>
+              </li>
+            );
+          })
+        : filter.map(item => {
+            return (
+              <List key={nanoid()}>
+                <ListItem>
                   {item.name}:{item.number}
                   <Button
-                    onClick={() => this.props.onFilter(item.id)}
+                    onClick={() => onDeleteItem(item.id)}
                     variant="contained"
                   >
-                    Delete
+                    Contained
                   </Button>
-                </li>
-              );
-            })
-          : this.props.filter.map(item => {
-              return (
-                <List key={nanoid()}>
-                  <ListItem>
-                    {item.name}:{item.number}
-                    <Button
-                      onClick={() => this.props.onFilter(item.id)}
-                      variant="contained"
-                    >
-                      Contained
-                    </Button>
-                  </ListItem>
-                </List>
-              );
-            })}
-      </ul>
-    );
-  }
-}
+                </ListItem>
+              </List>
+            );
+          })}
+    </ul>
+  );
+};
 
 export default ContactList;
 
-ContactList.propTypes = {
-  onFilter: PropTypes.func.isRequired,
-  contacts: PropTypes.string.isRequired,
-  filter: PropTypes.string.isRequired,
-};
+
