@@ -15,10 +15,10 @@ import {
 const persistConfig = {
   key: 'list',
   storage,
-  //   whitelist: ['contacts'],
 };
 
 const persistedReducer = persistReducer(persistConfig, contactReducer);
+// eslint-disable-next-line
 const rootReducer = combineReducers({
   contactsList: contactReducer,
   filter: filterReducer,
