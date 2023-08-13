@@ -10,6 +10,7 @@ const Filter = () => {
   const onFilterHandler = e => {
     const newArr = cont.filter(item => {
       if (e.target.value === '') {
+        dispatch(setFilterReducer(cont));
         return e.target.value;
       } else {
         return item.name.toLowerCase().includes(e.target.value);

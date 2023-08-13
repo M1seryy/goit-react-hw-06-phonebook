@@ -9,14 +9,13 @@ import { deleteContact } from 'redux/contactSlice';
 
 const ContactList = () => {
   const filter = useSelector(filterSelector);
+  
   const contacts = useSelector(contactsSelector);
   const dispatch = useDispatch();
-
 
   const onDeleteItem = id => {
     dispatch(deleteContact(id));
   };
-
 
   return (
     <ul>
@@ -54,5 +53,3 @@ const ContactList = () => {
 };
 
 export default ContactList;
-
-

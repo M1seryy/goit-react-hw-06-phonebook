@@ -28,16 +28,7 @@ const contactSlice = createSlice({
         };
       },
     },
-    getFromStorage: {
-      reducer(state, action) {
-        state.contacts = action.payload;
-      },
-      prepare(data) {
-        return {
-          payload: data,
-        };
-      },
-    },
+    
   },
 });
 export const { addContact, deleteContact, getFromStorage } =

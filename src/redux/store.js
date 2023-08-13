@@ -1,8 +1,5 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { contactReducer } from './contactSlice';
-import { filterReducer } from './filterSlice';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
 import {
   FLUSH,
   REHYDRATE,
@@ -11,22 +8,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
+import storage from 'redux-persist/lib/storage';
+import { contactReducer } from './contactSlice';
+import { filterReducer } from './filterSlice';
 const persistConfig = {
-  key: 'list',
+  key: 'contacts',
   storage,
+  whitelist: ['contacts'],
 };
-
-const persistedReducer = persistReducer(persistConfig, contactReducer);
-// eslint-disable-next-line
-const rootReducer = combineReducers({
-  contactsList: contactReducer,
-  filter: filterReducer,
-});
-
+const persistedContacts = persistReducer(persistConfig, contactReducer);
 export const store = configureStore({
   reducer: {
-    rootReducer: persistedReducer,
+    contacts: persistedContacts,
+    filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

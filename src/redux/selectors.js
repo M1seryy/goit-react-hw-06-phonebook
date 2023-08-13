@@ -1,2 +1,2 @@
-export const contactsSelector = state => state.rootReducer.contacts;
-export const filterSelector = state => state.rootReducer.filter;
+export const contactsSelector = state => state.contacts.contacts;
+export const filterSelector = state => state.filter.filter;
